@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Contact GlitchInvest to send your investment request. Fill out the form and we will redirect you to Gmail to complete your submission instantly." />
+    <title>Contact Us - GlitchInvest (www.glitchinvest.org)</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --green: #2e7d32;
+            --green-dark: #1b5e20;
+            --green-accent: #00e676;
+            --yellow: #fdd835;
+            --yellow-hover: #ffee58;
+            --cream: #fdfdf2;
+            --text-main: #1a2e1a;
+            --text-muted: #4a5d4a;
+            --bg-gradient: linear-gradient(135deg, #fef9c3 0%, #a7f3d0 50%, #15803d 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --shadow-lg: 0 20px 40px -15px rgba(0, 50, 20, 0.2);
+            --radius: 20px;
+        }
+
+        [data-theme="dark"] {
+            --cream: #122014;
+            --text-main: #f0fdf4;
+            --text-muted: #a7f3d0;
+            --bg-gradient: linear-gradient(135deg, #052e16 0%, #064e3b 50%, #022c22 100%);
+            --card-bg: rgba(15, 30, 18, 0.94);
+            --glass-border: rgba(34, 197, 94, 0.25);
+            --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: background 0.4s ease;
+        }
+
+        /* Header Navbar */
+        header.navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        [data-theme="dark"] header.navbar {
+            background: rgba(10, 24, 12, 0.85);
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(110deg, #15803d 0%, #00e676 25%, #fdd835 45%, #ffffff 50%, #fdd835 55%, #00e676 75%, #15803d 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            animation: shine-logo 3.5s linear infinite;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            filter: drop-shadow(0 0 12px rgba(0, 230, 118, 0.35));
+        }
+
+        @keyframes shine-logo {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .nav-back-btn {
+            background: rgba(46, 125, 50, 0.1);
+            border: 1px solid rgba(46, 125, 50, 0.2);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-back-btn:hover {
+            background: rgba(46, 125, 50, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            margin-top: 70px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .left {
+            padding: 40px;
+            background: linear-gradient(145deg, #1b5e20, #2e7d32);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .left h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .left p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .contact-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .right {
+            padding: 40px;
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            color: var(--green-dark);
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] .right h2 {
+            color: var(--green-accent);
+        }
+
+        .right p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+            font-size: 0.85rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(46, 125, 50, 0.3);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text-main);
+            transition: all 0.2s ease;
+        }
+
+        [data-theme="dark"] input, 
+        [data-theme="dark"] textarea {
+            background: rgba(10, 24, 12, 0.6);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 10px rgba(46, 125, 50, 0.25);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            background: var(--yellow);
+            color: #2e2e2e;
+            border: none;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            width: 100%;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background: var(--yellow-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(253, 216, 53, 0.4);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .status-card {
+            display: none;
+            padding: 14px;
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            color: #166534;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .status-card.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Social Icons */
+        .social-section {
+            margin-top: 28px;
+        }
+
+        .social-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .social-icon-btn:hover {
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+            filter: brightness(1.1);
+        }
+
+        .social-icon-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .social-icon-btn.tiktok    { background: #010101; }
+        .social-icon-btn.signal    { background: #3A76F0; }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .left, .right {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="landingpage.html" class="logo">✨ GLITCHINVEST</a>
+        <a href="landingpage.html" class="nav-back-btn">← Back to Home</a>
+    </header>
+
+    <div class="container">
+        <div class="left">
+            <div>
+                <h1>Contact Us</h1>
+                <p>Reach out to us directly and our team will process your request immediately.</p>
+                <div class="contact-info-list">
+                    <div class="contact-info-item">
+                        <span>⚡</span>
+                        <span>Instant Cash App Verification</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <span>✉️</span>
+                        <span>Direct Email Routing</span>
+                    </div>
+                    <div class="contact-info-item">
+                        <span>🔒</span>
+                        <span>Certified & Verified Program</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Icons -->
+            <div class="social-section">
+                <div class="social-label">Find Us On</div>
+                <div class="social-icons">
+                    <!-- TikTok -->
+                    <a href="https://www.tiktok.com/@davidplentyfunds?_r=1&amp;_t=ZP-985SWLihLvr" class="social-icon-btn tiktok" title="TikTok" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+                        </svg>
+                    </a>
+                    <!-- Signal -->
+                    <a href="https://signal.me/#eu/H4ogC6Q_PxzD74vf5Fgr3Hs2o4_4adMuJuHtww_LlA-S2UFqaeRPXKNnXwxugR7B" class="social-icon-btn signal" title="Signal" aria-label="Signal" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.373 0 0 5.373 0 12a11.963 11.963 0 0 0 1.632 6.046L.06 23.08a.75.75 0 0 0 .92.914l4.963-1.607A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm.53 6.27a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm-1.06 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm-2.47.75a.75.75 0 1 1 1.5 0 .75.75 0 0 1-1.5 0zm6 0a.75.75 0 1 1 1.5 0 .75.75 0 0 1-1.5 0zM12 8.25c2.07 0 3.913.97 5.118 2.49H6.882A6.73 6.73 0 0 1 12 8.25zm-6.74 3.99h13.48A6.74 6.74 0 0 1 12 18.75a6.74 6.74 0 0 1-6.74-6.51zm2.21 7.44a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm5.06 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm-2.53 0a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div style="font-size: 0.8rem; opacity: 0.8; margin-top: 20px;">
+                Certified by Bank of America & Partners
+            </div>
+        </div>
+        <div class="right">
+            <h2>Send Us a Message</h2>
+            <p>Fill out the form below to send your request directly to our team.</p>
+
+            <div class="status-card" id="statusCard">
+                ✅ <strong>Redirecting to Gmail to send your message...</strong>
+            </div>
+
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="e.g. Sarah Miller" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="e.g. sarah@example.com" required />
+                </div>
+                <div class="form-group">
+                    <label for="message">Message / Preferred Investment Tier</label>
+                    <textarea id="message" name="message" placeholder="Type your message or cash app handle..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn">
+                    <span>Send Message</span> ➔
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contactForm');
+            const statusCard = document.getElementById('statusCard');
+
+            // Pre-fill message if parameters passed from investment calculator
+            const urlParams = new URLSearchParams(window.location.search);
+            const amountParam = urlParams.get('amount');
+            const returnParam = urlParams.get('return');
+            if (amountParam && returnParam) {
+                const messageBox = document.getElementById('message');
+                messageBox.value = `I would like to start the $${amountParam} Investment Tier (Estimated Return: $${returnParam}). Please send Cash App instructions!`;
+            }
+
+            // Form Submit Logic
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+
+                if (!name || !email || !message) return;
+
+                // 1. Show status notice
+                statusCard.classList.add('show');
+
+                // 2. Direct Gmail compose URL to walkerdon3482@gmail.com
+                const targetEmail = 'walkerdon3482@gmail.com';
+                const subject = encodeURIComponent(`Project X Contact Request from ${name}`);
+                const body = encodeURIComponent(`Client Name: ${name}\nClient Email: ${email}\n\nMessage:\n${message}`);
+                const targetGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${targetEmail}&su=${subject}&body=${body}`;
+
+                // Redirect to Gmail compose in the same window (uses already logged-in account)
+                setTimeout(() => {
+                    window.location.href = targetGmailUrl;
+                }, 800);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Browse GlitchInvest verified investment packages — Starter, Growth, Pro and VIP Platinum tiers with guaranteed Cash App payouts from $1,800 to $18,000." />
+    <title>Investment Packages - GlitchInvest</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --green: #2e7d32;
+            --green-dark: #1b5e20;
+            --green-accent: #00e676;
+            --yellow: #fdd835;
+            --yellow-hover: #ffee58;
+            --cream: #f2fdf2;
+            --text-main: #1a2e1a;
+            --text-muted: #4a5d4a;
+            --bg-gradient: linear-gradient(135deg, #fef9c3 0%, #a7f3d0 50%, #15803d 100%);
+            --card-bg: rgba(255, 255, 255, 0.94);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --shadow-lg: 0 20px 40px -15px rgba(0, 50, 20, 0.2);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header.navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--green-dark), #16a34a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .nav-back-btn {
+            background: rgba(46, 125, 50, 0.1);
+            border: 1px solid rgba(46, 125, 50, 0.2);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin-top: 90px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .header-title {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header-title h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.4rem;
+            color: var(--green-dark);
+            margin-bottom: 10px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .package-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .package-card.popular {
+            border: 2px solid var(--green);
+            background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+        }
+
+        .pop-badge {
+            position: absolute;
+            top: -14px;
+            right: 20px;
+            background: var(--yellow);
+            color: #3b2c00;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .pkg-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+        }
+
+        .pkg-price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .pkg-return {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--green-dark);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--yellow);
+            color: #2e2e2e;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--yellow-hover);
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="landingpage.html" class="logo">✨ GLITCHINVEST</a>
+        <a href="landingpage.html" class="nav-back-btn">← Back to Home</a>
+    </header>
+
+    <div class="container">
+        <div class="header-title">
+            <h1>📦 Verified Investment Tiers</h1>
+            <p>Select your preferred multiplier tier and get processed instantly via Cash App.</p>
+        </div>
+
+        <div class="packages-grid">
+            <div class="package-card">
+                <div>
+                    <div class="pkg-name">Starter Tier</div>
+                    <div class="pkg-price">$100</div>
+                    <div class="pkg-return">Guaranteed Return: <strong>$1,800 ✅</strong></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">Ideal for first-time clients looking for fast, verified payout within 15-30 mins.</p>
+                </div>
+                <a href="contactusnow.html?amount=100&return=1800" class="btn">Select Starter Tier ➔</a>
+            </div>
+
+            <div class="package-card popular">
+                <div class="pop-badge">MOST POPULAR 🔥</div>
+                <div>
+                    <div class="pkg-name">Growth Tier</div>
+                    <div class="pkg-price">$200</div>
+                    <div class="pkg-return">Guaranteed Return: <strong>$3,600 ✅</strong></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">Our most popular plan, backed by third-party pandemic grant matching.</p>
+                </div>
+                <a href="contactusnow.html?amount=200&return=3600" class="btn">Select Growth Tier ➔</a>
+            </div>
+
+            <div class="package-card">
+                <div>
+                    <div class="pkg-name">Pro Tier</div>
+                    <div class="pkg-price">$500</div>
+                    <div class="pkg-return">Guaranteed Return: <strong>$9,000 ✅</strong></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">Higher yield tier with priority express payout processing.</p>
+                </div>
+                <a href="contactusnow.html?amount=500&return=9000" class="btn">Select Pro Tier ➔</a>
+            </div>
+
+            <div class="package-card">
+                <div>
+                    <div class="pkg-name">VIP Platinum Tier</div>
+                    <div class="pkg-price">$1,000</div>
+                    <div class="pkg-return">Guaranteed Return: <strong>$18,000 ✅</strong></div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">Maximum VIP pool multiplier with dedicated agent support.</p>
+                </div>
+                <a href="contactusnow.html?amount=1000&return=18000" class="btn">Select VIP Platinum ➔</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

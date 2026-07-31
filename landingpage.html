@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="GlitchInvest — a verified Cash App investment multiplier program. Invest $100–$1,000 and receive guaranteed returns up to $18,000 within 15-30 minutes via Cash App." />
+    <title>GlitchInvest - www.glitchinvest.org</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --green: #2e7d32;
+            --green-dark: #1b5e20;
+            --green-accent: #00e676;
+            --yellow: #fdd835;
+            --yellow-hover: #ffee58;
+            --cream: #f2fdf2;
+            --text-main: #1a2e1a;
+            --text-muted: #4a5d4a;
+            --bg-gradient: linear-gradient(135deg, #fef9c3 0%, #a7f3d0 50%, #15803d 100%);
+            --card-bg: rgba(255, 255, 255, 0.94);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --shadow-lg: 0 20px 40px -15px rgba(0, 50, 20, 0.2);
+            --radius: 20px;
+        }
+
+        [data-theme="dark"] {
+            --cream: #122014;
+            --text-main: #f0fdf4;
+            --text-muted: #a7f3d0;
+            --bg-gradient: linear-gradient(135deg, #052e16 0%, #064e3b 50%, #022c22 100%);
+            --card-bg: rgba(15, 30, 18, 0.94);
+            --glass-border: rgba(34, 197, 94, 0.25);
+            --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* Ambient background glow elements */
+        .ambient-glow {
+            position: fixed;
+            top: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(253, 216, 53, 0.35) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulse-glow 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.3) translate(50px, 50px); }
+        }
+
+        /* Header Navbar */
+        header.navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: background 0.3s ease;
+        }
+
+        [data-theme="dark"] header.navbar {
+            background: rgba(10, 24, 12, 0.85);
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(110deg, #15803d 0%, #00e676 25%, #fdd835 45%, #ffffff 50%, #fdd835 55%, #00e676 75%, #15803d 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            animation: shine-logo 3.5s linear infinite;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            filter: drop-shadow(0 0 12px rgba(0, 230, 118, 0.35));
+        }
+
+        @keyframes shine-logo {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .site-link-badge {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            background: rgba(46, 125, 50, 0.1);
+            border: 1px solid rgba(46, 125, 50, 0.2);
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(46, 125, 50, 0.1);
+            border: 1px solid rgba(46, 125, 50, 0.2);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(46, 125, 50, 0.2);
+        }
+
+        /* Hero Layout */
+        .hero {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Main Card */
+        .card {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .left {
+            padding: 40px;
+            background: linear-gradient(145deg, #1b5e20, #2e7d32);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--yellow);
+            color: #3b2c00;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(253, 216, 53, 0.3);
+            width: fit-content;
+            animation: pulse-badge 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+
+        .left h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.65rem;
+            line-height: 1.35;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #ffffff;
+        }
+
+        .left p {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 26px;
+            background: var(--yellow);
+            color: #262626;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            transition: all 0.25s ease;
+            width: fit-content;
+        }
+
+        .btn:hover {
+            background: var(--yellow-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(253, 216, 53, 0.4);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Right Panel */
+        .right {
+            padding: 40px;
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .right h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            color: var(--green-dark);
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] .right h2 {
+            color: var(--green-accent);
+        }
+
+        .right p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        /* Interactive Filter Tabs */
+        .gallery-filter {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .filter-btn {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        [data-theme="dark"] .filter-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+
+        /* Media Gallery */
+        .media-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            aspect-ratio: 4/3;
+            background: #000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            gap: 6px;
+        }
+
+        .gallery-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .item-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Interactive Calculator Widget Section */
+        .calculator-card {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .calc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .calc-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        [data-theme="dark"] .calc-title {
+            color: var(--green-accent);
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .calc-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .slider-val {
+            color: var(--green);
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        [data-theme="dark"] .slider-val {
+            color: var(--green-accent);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #cbd5e1;
+            outline: none;
+            accent-color: var(--green);
+            cursor: pointer;
+        }
+
+        .preset-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            flex: 1;
+            min-width: 70px;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+            text-align: center;
+        }
+
+        [data-theme="dark"] .preset-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .preset-btn.active, .preset-btn:hover {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+
+        .calc-display {
+            background: linear-gradient(135deg, var(--green-dark), #15803d);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(22, 163, 74, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calc-display::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .calc-return-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+
+        .calc-return-amount {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--yellow);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .calc-payout-time {
+            font-size: 0.8rem;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 999px;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
+        /* FAQ Accordion Section */
+        .faq-section {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 32px;
+        }
+
+        .faq-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 20px;
+        }
+
+        [data-theme="dark"] .faq-title {
+            color: var(--green-accent);
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] .faq-item {
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(20, 40, 24, 0.5);
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--green);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            content: '−';
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            transition: max-height 0.35s cubic-bezier(0, 1, 0, 1), padding 0.35s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 20px 16px;
+        }
+
+        /* Footer */
+        .footer {
+            width: 100%;
+            margin-top: 10px;
+            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 24px;
+            background: var(--green);
+            color: white;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .footer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(46, 125, 50, 0.3);
+        }
+
+        .footer-btn.contact {
+            background: var(--yellow);
+            color: #2e2e2e;
+        }
+
+        .footer-btn.contact:hover {
+            background: var(--yellow-hover);
+            box-shadow: 0 6px 16px rgba(253, 216, 53, 0.4);
+        }
+
+        /* Live Payout Toast Ticker */
+        .toast-ticker {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 1000;
+            background: rgba(15, 30, 18, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.85rem;
+            max-width: 360px;
+            transform: translateY(120px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast-ticker.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--green-accent);
+            color: #052e16;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            padding: 2px;
+            margin-left: auto;
+        }
+
+        .toast-close:hover {
+            color: white;
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 900px;
+            max-height: 85vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-media-container {
+            width: 100%;
+            max-height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-media-container img,
+        .lightbox-media-container video {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .lightbox-prev { left: -60px; }
+        .lightbox-next { right: -60px; }
+
+        /* Floating Dock */
+        .quick-dock {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dock-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: var(--yellow);
+            color: #2e2e2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .dock-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsiveness */
+        @media (max-width: 900px) {
+            .card {
+                grid-template-columns: 1fr;
+            }
+            .calc-grid {
+                grid-template-columns: 1fr;
+            }
+            .lightbox-prev { left: 10px; }
+            .lightbox-next { right: 10px; }
+        }
+
+        @media (max-width: 600px) {
+            header.navbar { padding: 12px 16px; }
+            .hero { padding: 16px 12px 60px; }
+            .left, .right, .calculator-card, .faq-section { padding: 20px; }
+            .media-gallery { grid-template-columns: 1fr 1fr; }
+            .toast-ticker { left: 12px; right: 12px; max-width: none; bottom: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <a href="landingpage.html" class="logo">
+            ✨ GLITCHINVEST
+        </a>
+        <div class="nav-links">
+            <button class="theme-toggle-btn" id="themeToggleBtn">
+                🌙 <span id="themeToggleText">Dark Mode</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <!-- Main Info Card -->
+        <div class="card">
+            <div class="left">
+                <div>
+                    <div class="badge">Verified Program ✅</div>
+                    <h2>What we do here is a LEGITIMATE CASH APP INVESTMENT, Verified by Cash App and Certified by the Bank of America along with our main sponsors: The World Health Organization, Feeding America, Direct Relief and Americare.</h2>
+                    <p>This investment was implemented in aid of the CORONA VIRUS PANDEMIC and set up to help low income and unemployed persons along with single parents to make extra cash to take care of their families.</p>
+                </div>
+                <a href="learnmore.html" class="btn">
+                    <span>Learn More Details</span> ➔
+                </a>
+            </div>
+            <div class="right">
+                <div>
+                    <h2>What We Do Here</h2>
+                    <p>New Clients are always skeptic and wonder how the money is multiplied but clients have nothing to worry about because our main sponsors are the 3rd party organizations that increases your money based on how much you invest... Below is proof of our investment and how we multiply your money.</p>
+                    
+                    <!-- Filter Tabs -->
+                    <div class="gallery-filter">
+                        <button class="filter-btn active" data-filter="all">All Proofs</button>
+                        <button class="filter-btn" data-filter="image">Photo Proofs (3)</button>
+                        <button class="filter-btn" data-filter="video">Video Proofs (3)</button>
+                    </div>
+
+                    <!-- Interactive Media Gallery -->
+                    <div class="media-gallery" id="mediaGallery">
+                        <div class="gallery-item" data-type="image" data-src="images/proof 3.jpeg" data-caption="Verified Cash App Payout Proof 1">
+                            <img src="images/proof 3.jpeg" alt="proof of investment" />
+                            <div class="item-badge">Photo</div>
+                            <div class="item-overlay">🔍 Expand View</div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="images/proof 6.jpeg" data-caption="Verified Cash App Payout Proof 2">
+                            <img src="images/proof 6.jpeg" alt="proof of investment" />
+                            <div class="item-badge">Photo</div>
+                            <div class="item-overlay">🔍 Expand View</div>
+                        </div>
+                        <div class="gallery-item" data-type="image" data-src="images/proof 8.jpeg" data-caption="Verified Cash App Payout Proof 3">
+                            <img src="images/proof 8.jpeg" alt="proof of investment" />
+                            <div class="item-badge">Photo</div>
+                            <div class="item-overlay">🔍 Expand View</div>
+                        </div>
+                        <div class="gallery-item" data-type="video" data-src="videos/proof 1.mp4" data-caption="Live Payout Video Proof 1">
+                            <video muted preload="metadata">
+                                <source src="videos/proof 1.mp4" type="video/mp4" />
+                            </video>
+                            <div class="item-badge">Video 🎬</div>
+                            <div class="item-overlay">▶ Play Video</div>
+                        </div>
+                        <div class="gallery-item" data-type="video" data-src="videos/proof 2.mp4" data-caption="Live Payout Video Proof 2">
+                            <video muted preload="metadata">
+                                <source src="videos/proof 2.mp4" type="video/mp4" />
+                            </video>
+                            <div class="item-badge">Video 🎬</div>
+                            <div class="item-overlay">▶ Play Video</div>
+                        </div>
+                        <div class="gallery-item" data-type="video" data-src="videos/proof 5.mp4" data-caption="Live Payout Video Proof 3">
+                            <video muted preload="metadata">
+                                <source src="videos/proof 5.mp4" type="video/mp4" />
+                            </video>
+                            <div class="item-badge">Video 🎬</div>
+                            <div class="item-overlay">▶ Play Video</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Calculator Widget -->
+        <div class="calculator-card">
+            <div class="calc-header">
+                <div class="calc-title">
+                    🧮 Interactive Investment Return Calculator
+                </div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">Select or drag to see instant multiplier returns</span>
+            </div>
+            <div class="calc-grid">
+                <div class="calc-controls">
+                    <div class="slider-label">
+                        <span>Select Investment Amount:</span>
+                        <span class="slider-val" id="sliderVal">$200</span>
+                    </div>
+                    <input type="range" id="investSlider" min="50" max="1000" step="50" value="200" />
+                    <div class="preset-btns">
+                        <button class="preset-btn" data-val="100">$100 Tier</button>
+                        <button class="preset-btn active" data-val="200">$200 Tier</button>
+                        <button class="preset-btn" data-val="500">$500 Tier</button>
+                        <button class="preset-btn" data-val="1000">$1,000 VIP</button>
+                    </div>
+                </div>
+                <div class="calc-display">
+                    <div class="calc-return-label">Estimated Guaranteed Return</div>
+                    <div class="calc-return-amount" id="returnAmount">$2,000</div>
+                    <div class="calc-payout-time">⚡ Express Payout in 15-30 Mins</div>
+                    <a href="contactusnow.html" class="btn" style="margin: 8px auto 0;" id="calcInvestBtn">
+                        Claim This Payout Now ➔
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2 class="faq-title">❓ Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">How does the cash multiplier investment work?</div>
+                    <div class="faq-answer">Our program leverages third-party sponsor grants and institutional liquid pools. Once your investment is verified, funds are multiplied according to certified grant tiers and instantly transferred back via Cash App.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How fast will I receive my payout?</div>
+                    <div class="faq-answer">Payouts are processed automatically and directly into your Cash App account within 15 to 30 minutes after verification.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Are there any hidden fees or charges?</div>
+                    <div class="faq-answer">No, there are no hidden fees. All returns are clear, guaranteed, and backed by our sponsors.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How do I get started right now?</div>
+                    <div class="faq-answer">Simply click on "Contact Us Now", send us a quick message with your preferred investment amount, and our representative will guide you through the instant process.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Navigation -->
+        <div class="footer">
+            <a href="about.html" class="footer-btn">ℹ️ About Us</a>
+            <a href="packages.html" class="footer-btn">📦 Investment Packages</a>
+            <a href="contactusnow.html" class="footer-btn contact">✉️ Contact Us Now</a>
+        </div>
+    </section>
+
+    <!-- Floating Dock -->
+    <div class="quick-dock">
+        <a href="contactusnow.html" class="dock-btn" title="Contact Support">💬</a>
+        <button class="dock-btn" id="backToTopBtn" title="Back to Top">↑</button>
+    </div>
+
+    <!-- Live Payout Toast Ticker -->
+    <div class="toast-ticker" id="toastTicker">
+        <div class="toast-icon">💵</div>
+        <div>
+            <div id="toastTitle" style="font-weight: 700;">Sarah M. received $2,000 Payout</div>
+            <div id="toastSub" style="font-size: 0.75rem; color: #a7f3d0;">Cash App • Just now</div>
+        </div>
+        <button class="toast-close" id="toastCloseBtn">✕</button>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightboxModal">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">✕</button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+            <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+            <div class="lightbox-media-container" id="lightboxMediaContainer"></div>
+            <div style="color: white; margin-top: 12px; font-weight: 600;" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <!-- Interactive Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Toggle Logic
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeToggleText = document.getElementById('themeToggleText');
+            let isDark = localStorage.getItem('theme') === 'dark';
+
+            function applyTheme(dark) {
+                if (dark) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeToggleText.textContent = 'Light Mode';
+                    themeToggleBtn.firstChild.textContent = '☀️ ';
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    themeToggleText.textContent = 'Dark Mode';
+                    themeToggleBtn.firstChild.textContent = '🌙 ';
+                }
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+            }
+
+            applyTheme(isDark);
+            themeToggleBtn.addEventListener('click', () => {
+                isDark = !isDark;
+                applyTheme(isDark);
+            });
+
+            // Interactive Investment Calculator Logic
+            const slider = document.getElementById('investSlider');
+            const sliderVal = document.getElementById('sliderVal');
+            const returnAmount = document.getElementById('returnAmount');
+            const presetBtns = document.querySelectorAll('.preset-btn');
+            const calcInvestBtn = document.getElementById('calcInvestBtn');
+
+            function updateCalculator(val) {
+                slider.value = val;
+                sliderVal.textContent = `$${val}`;
+                
+                // 18x multiplier logic matching official schedule
+                const ret = val * 18;
+                returnAmount.textContent = `$${ret.toLocaleString()}`;
+                
+                presetBtns.forEach(btn => {
+                    if (parseInt(btn.getAttribute('data-val')) === parseInt(val)) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                if (calcInvestBtn) {
+                    calcInvestBtn.href = `contactusnow.html?amount=${val}&return=${ret}`;
+                }
+            }
+
+            slider.addEventListener('input', (e) => {
+                updateCalculator(e.target.value);
+            });
+
+            presetBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const val = btn.getAttribute('data-val');
+                    updateCalculator(val);
+                });
+            });
+
+            // Media Gallery Filters
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.getAttribute('data-filter');
+
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-type') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Lightbox Modal Viewer
+            const lightboxModal = document.getElementById('lightboxModal');
+            const lightboxContainer = document.getElementById('lightboxMediaContainer');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+
+            let currentMediaIndex = 0;
+            const mediaList = Array.from(galleryItems).map(item => ({
+                type: item.getAttribute('data-type'),
+                src: item.getAttribute('data-src'),
+                caption: item.getAttribute('data-caption')
+            }));
+
+            function openLightbox(index) {
+                currentMediaIndex = index;
+                const media = mediaList[index];
+                lightboxContainer.innerHTML = '';
+                
+                if (media.type === 'image') {
+                    const img = document.createElement('img');
+                    img.src = media.src;
+                    lightboxContainer.appendChild(img);
+                } else {
+                    const video = document.createElement('video');
+                    video.src = media.src;
+                    video.controls = true;
+                    video.autoplay = true;
+                    lightboxContainer.appendChild(video);
+                }
+
+                lightboxCaption.textContent = media.caption;
+                lightboxModal.classList.add('active');
+            }
+
+            galleryItems.forEach((item, idx) => {
+                item.addEventListener('click', () => openLightbox(idx));
+            });
+
+            lightboxClose.addEventListener('click', () => {
+                lightboxModal.classList.remove('active');
+                lightboxContainer.innerHTML = '';
+            });
+
+            lightboxPrev.addEventListener('click', () => {
+                currentMediaIndex = (currentMediaIndex - 1 + mediaList.length) % mediaList.length;
+                openLightbox(currentMediaIndex);
+            });
+
+            lightboxNext.addEventListener('click', () => {
+                currentMediaIndex = (currentMediaIndex + 1) % mediaList.length;
+                openLightbox(currentMediaIndex);
+            });
+
+            lightboxModal.addEventListener('click', (e) => {
+                if (e.target === lightboxModal) {
+                    lightboxModal.classList.remove('active');
+                    lightboxContainer.innerHTML = '';
+                }
+            });
+
+            // FAQ Accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(q => {
+                q.addEventListener('click', () => {
+                    const item = q.parentElement;
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Floating Toast Activity Ticker
+            const toastTicker = document.getElementById('toastTicker');
+            const toastTitle = document.getElementById('toastTitle');
+            const toastSub = document.getElementById('toastSub');
+            const toastCloseBtn = document.getElementById('toastCloseBtn');
+
+            const simulatedPayouts = [
+                { name: 'Sarah M.', amount: '$2,000', time: '2 mins ago' },
+                { name: 'Michael B.', amount: '$5,000', time: '5 mins ago' },
+                { name: 'David K.', amount: '$1,000', time: '8 mins ago' },
+                { name: 'Amanda L.', amount: '$3,500', time: '12 mins ago' }
+            ];
+
+            let toastIndex = 0;
+            function showNextToast() {
+                const data = simulatedPayouts[toastIndex];
+                toastTitle.textContent = `${data.name} received ${data.amount} Payout`;
+                toastSub.textContent = `Cash App • ${data.time}`;
+                toastTicker.classList.add('show');
+
+                setTimeout(() => {
+                    toastTicker.classList.remove('show');
+                }, 4000);
+
+                toastIndex = (toastIndex + 1) % simulatedPayouts.length;
+            }
+
+            setTimeout(showNextToast, 2000);
+            setInterval(showNextToast, 12000);
+
+            toastCloseBtn.addEventListener('click', () => {
+                toastTicker.classList.remove('show');
+            });
+
+            // Back to top
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
