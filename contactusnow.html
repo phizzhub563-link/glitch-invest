@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <!-- Content Security Policy: blocks injected scripts, limits resource origins -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://mail.google.com;">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Contact GlitchInvest to send your investment request. Fill out the form and we will redirect you to Gmail to complete your submission instantly." />
     <title>Contact Us - GlitchInvest (www.glitchinvest.org)</title>
@@ -328,7 +330,48 @@
     </nav>
 
     <script>
+        // ─── Self-XSS Console Warning (like Facebook / Google) ───────────────────
+        (function () {
+            var style = 'font-size:24px;font-weight:bold;color:#c0392b;';
+            var style2 = 'font-size:14px;color:#333;';
+            console.log('%c⛔ STOP!', style);
+            console.log(
+                '%cThis browser feature is intended for developers. If someone told you to paste something here, they are trying to scam you. Do NOT paste anything into this console.',
+                style2
+            );
+        })();
+
         document.addEventListener('DOMContentLoaded', () => {
+            // ─── Sanitization Helper ──────────────────────────────────────────────
+            // Strips ALL HTML tags from a string — prevents XSS when values
+            // are reflected into the DOM or into URLs.
+            function sanitizeText(str) {
+                if (typeof str !== 'string') return '';
+                // Cap length to prevent URL-overflow / DoS
+                str = str.slice(0, 1000);
+                // Create a temporary text node — the browser never parses it as HTML
+                var div = document.createElement('div');
+                div.appendChild(document.createTextNode(str));
+                return div.innerHTML
+                    // Remove any surviving angle brackets just in case
+                    .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            // ─── Safe statusCard updater (no innerHTML with user data) ────────────
+            function setStatus(icon, boldText, plainText) {
+                if (!statusCard) return;
+                statusCard.textContent = '';
+                var span1 = document.createElement('span');
+                span1.textContent = icon + ' ';
+                var strong = document.createElement('strong');
+                strong.textContent = boldText;
+                statusCard.appendChild(span1);
+                statusCard.appendChild(strong);
+                if (plainText) {
+                    statusCard.appendChild(document.createTextNode(' ' + plainText));
+                }
+            }
+
             const themeToggleBtn = document.getElementById('themeToggleBtn');
             const themeToggleText = document.getElementById('themeToggleText');
             let isDark = localStorage.getItem('theme') === 'dark';
@@ -357,40 +400,82 @@
             const form = document.getElementById('contactForm');
             const statusCard = document.getElementById('statusCard');
 
-            // Pre-fill message if parameters passed from investment calculator
+            // ─── Pre-fill from URL params (sanitized) ────────────────────────────
+            // Sanitize URL params BEFORE writing into the textarea
+            // to prevent reflected-XSS via crafted links.
             const urlParams = new URLSearchParams(window.location.search);
-            const amountParam = urlParams.get('amount');
-            const returnParam = urlParams.get('return');
-            if (amountParam && returnParam) {
+            const amountParam = sanitizeText(urlParams.get('amount') || '');
+            const returnParam = sanitizeText(urlParams.get('return') || '');
+            // Only allow numeric-looking values (extra guard)
+            const safeAmount = amountParam.replace(/[^0-9.,]/g, '').slice(0, 20);
+            const safeReturn = returnParam.replace(/[^0-9.,]/g, '').slice(0, 20);
+            if (safeAmount && safeReturn) {
                 const messageBox = document.getElementById('message');
                 if (messageBox) {
-                    messageBox.value = `I would like to start the $${amountParam} Investment Tier (Estimated Return: $${returnParam}). Please send Cash App instructions!`;
+                    // Use textContent assignment path — textarea.value is safe (not parsed as HTML)
+                    messageBox.value = `I would like to start the $${safeAmount} Investment Tier (Estimated Return: $${safeReturn}). Please send Cash App instructions!`;
                 }
             }
 
-            // Form Submit Logic
+            // ─── Form Submit Logic ────────────────────────────────────────────────
             if (form) {
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();
 
-                    const name = document.getElementById('name').value.trim();
-                    const email = document.getElementById('email').value.trim();
-                    const message = document.getElementById('message').value.trim();
+                    // Read and sanitize all inputs
+                    const rawName    = document.getElementById('name').value.trim();
+                    const rawEmail   = document.getElementById('email').value.trim();
+                    const rawMessage = document.getElementById('message').value.trim();
 
-                    if (!name || !email || !message) return;
+                    const name    = sanitizeText(rawName).slice(0, 120);
+                    const email   = sanitizeText(rawEmail).slice(0, 254);
+                    const message = sanitizeText(rawMessage).slice(0, 2000);
 
-                    // 1. Show status notice
-                    if (statusCard) statusCard.classList.add('show');
+                    // Basic email format guard
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!name || !email || !message || !emailPattern.test(rawEmail)) return;
 
-                    // 2. Direct Gmail compose URL to walkerdon3482@gmail.com
+                    // 1. Save sanitized data to localStorage
+                    const submission = { name, email, message, timestamp: new Date().toISOString() };
+                    localStorage.setItem('glitchinvest_last_contact', JSON.stringify(submission));
+
+                    // 2. Show status notice (safe DOM builder — no user data in HTML)
+                    statusCard.classList.add('show');
+                    setStatus('✅', 'Message saved!', 'Opening Gmail to complete your submission...');
+
+                    // 3. Build Gmail compose URL — all values already sanitized & encoded
                     const targetEmail = 'walkerdon3482@gmail.com';
-                    const subject = encodeURIComponent(`Project X Contact Request from ${name}`);
-                    const body = encodeURIComponent(`Client Name: ${name}\nClient Email: ${email}\n\nMessage:\n${message}`);
-                    const targetGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${targetEmail}&su=${subject}&body=${body}`;
+                    const subject = encodeURIComponent(`GlitchInvest Contact Request from ${name}`);
+                    const bodyText = [
+                        'Hello GlitchInvest Team,',
+                        '',
+                        `Client Name: ${name}`,
+                        `Client Email: ${email}`,
+                        '',
+                        'Message:',
+                        message,
+                        '',
+                        '---',
+                        'Sent via GlitchInvest Contact Form'
+                    ].join('\n');
+                    const body = encodeURIComponent(bodyText);
+                    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(targetEmail)}&su=${subject}&body=${body}`;
 
-                    // Redirect to Gmail compose in the same window
+                    // 4. Open Gmail in a new tab; fall back to same-tab if popups blocked
                     setTimeout(() => {
-                        window.location.href = targetGmailUrl;
+                        const newTab = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
+                        if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+                            window.location.href = gmailUrl;
+                        } else {
+                            setStatus('✅', 'Gmail opened in a new tab!', 'Please send the pre-filled email to complete your request.');
+                            const btn = form.querySelector('.submit-btn');
+                            if (btn) {
+                                btn.disabled = true;
+                                btn.textContent = '✔ Submitted';
+                                btn.style.opacity = '0.7';
+                                btn.style.cursor = 'default';
+                            }
+                        }
                     }, 800);
                 });
             }
