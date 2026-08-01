@@ -8,64 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
     <style>
-        :root {
-            --green: #2e7d32;
-            --green-dark: #1b5e20;
-            --yellow: #fdd835;
-            --cream: #f2fdf2;
-            --text-main: #1a2e1a;
-            --text-muted: #4a5d4a;
-            --bg-gradient: linear-gradient(135deg, #fef9c3 0%, #a7f3d0 50%, #15803d 100%);
-            --card-bg: rgba(255, 255, 255, 0.94);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --shadow-lg: 0 20px 40px -15px rgba(0, 50, 20, 0.2);
-            --radius: 20px;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        header.navbar {
-            position: fixed;
-            top: 0; left: 0; right: 0; z-index: 100;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 14px 28px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-
-        .logo {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.5rem; font-weight: 800; letter-spacing: 2px;
-            background: linear-gradient(135deg, var(--green-dark), #16a34a);
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            text-transform: uppercase; text-decoration: none;
-        }
-
-        .nav-back-btn {
-            background: rgba(46, 125, 50, 0.1);
-            border: 1px solid rgba(46, 125, 50, 0.2);
-            color: var(--text-main); padding: 8px 16px;
-            border-radius: 999px; text-decoration: none;
-            font-weight: 700; font-size: 0.85rem;
-        }
-
         .container {
             width: 100%; max-width: 950px;
-            margin-top: 90px;
+            margin-top: 30px;
             background: var(--card-bg);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius);
@@ -74,9 +21,17 @@
             display: flex; flex-direction: column; gap: 24px;
         }
 
+        @media (max-width: 768px) {
+            .container { padding: 20px; margin-top: 15px; }
+        }
+
         h1 {
             font-family: 'Outfit', sans-serif;
             font-size: 2.2rem; color: var(--green-dark);
+        }
+
+        [data-theme="dark"] h1, [data-theme="dark"] h2 {
+            color: var(--green-accent);
         }
 
         h2 {
@@ -95,6 +50,10 @@
             box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
         }
 
+        [data-theme="dark"] .rates-container {
+            background: rgba(15, 30, 18, 0.8);
+        }
+
         .rates-title {
             font-family: 'Outfit', sans-serif;
             font-size: 1.3rem;
@@ -106,9 +65,13 @@
             gap: 8px;
         }
 
+        [data-theme="dark"] .rates-title {
+            color: var(--green-accent);
+        }
+
         .rates-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 12px;
         }
 
@@ -124,6 +87,11 @@
             font-size: 0.95rem;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
             transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        [data-theme="dark"] .rate-card {
+            background: rgba(20, 40, 24, 0.9);
+            border-color: rgba(34, 197, 94, 0.2);
         }
 
         .rate-card:hover {
@@ -147,6 +115,10 @@
             gap: 4px;
         }
 
+        [data-theme="dark"] .rate-receive {
+            color: var(--green-accent);
+        }
+
         .btn {
             display: inline-block; padding: 14px 28px;
             background: var(--yellow); color: #2e2e2e;
@@ -164,8 +136,19 @@
 </head>
 <body>
     <header class="navbar">
-        <a href="landingpage.html" class="logo">✨ GLITCHINVEST</a>
-        <a href="landingpage.html" class="nav-back-btn">← Back to Home</a>
+        <a href="index.html" class="logo">✨ GLITCHINVEST</a>
+        <div class="nav-right-container">
+            <nav class="desktop-nav-links">
+                <a href="index.html" class="nav-link-item">🏠 Home</a>
+                <a href="packages.html" class="nav-link-item">📦 Packages</a>
+                <a href="index.html#calculator" class="nav-link-item">🧮 Calculator</a>
+                <a href="about.html" class="nav-link-item active">ℹ️ About</a>
+                <a href="contactusnow.html" class="nav-cta-btn">✉️ Contact Us</a>
+            </nav>
+            <button class="theme-toggle-btn" id="themeToggleBtn">
+                🌙 <span id="themeToggleText">Dark Mode</span>
+            </button>
+        </div>
     </header>
 
     <div class="container">
@@ -279,5 +262,58 @@
 
         <a href="contactusnow.html" class="btn">Start Your Investment Now ➔</a>
     </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <span class="nav-icon">🏠</span>
+            <span>Home</span>
+        </a>
+        <a href="packages.html" class="mobile-nav-item">
+            <span class="nav-icon">📦</span>
+            <span>Packages</span>
+        </a>
+        <a href="index.html#calculator" class="mobile-nav-item">
+            <span class="nav-icon">🧮</span>
+            <span>Calc</span>
+        </a>
+        <a href="contactusnow.html" class="mobile-nav-item">
+            <span class="nav-icon">💬</span>
+            <span>Support</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item active">
+            <span class="nav-icon">ℹ️</span>
+            <span>About</span>
+        </a>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const themeToggleText = document.getElementById('themeToggleText');
+            let isDark = localStorage.getItem('theme') === 'dark';
+
+            function applyTheme(dark) {
+                if (dark) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    if (themeToggleText) themeToggleText.textContent = 'Light Mode';
+                    if (themeToggleBtn && themeToggleBtn.firstChild) themeToggleBtn.firstChild.textContent = '☀️ ';
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    if (themeToggleText) themeToggleText.textContent = 'Dark Mode';
+                    if (themeToggleBtn && themeToggleBtn.firstChild) themeToggleBtn.firstChild.textContent = '🌙 ';
+                }
+                localStorage.setItem('theme', dark ? 'dark' : 'light');
+            }
+
+            applyTheme(isDark);
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    isDark = !isDark;
+                    applyTheme(isDark);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

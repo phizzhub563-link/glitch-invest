@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
     <style>
         :root {
             --green: #2e7d32;
@@ -875,10 +876,17 @@
 
     <!-- Header Navbar -->
     <header class="navbar">
-        <a href="landingpage.html" class="logo">
+        <a href="index.html" class="logo">
             ✨ GLITCHINVEST
         </a>
-        <div class="nav-links">
+        <div class="nav-right-container">
+            <nav class="desktop-nav-links">
+                <a href="index.html" class="nav-link-item active">🏠 Home</a>
+                <a href="packages.html" class="nav-link-item">📦 Packages</a>
+                <a href="#calculator" class="nav-link-item">🧮 Calculator</a>
+                <a href="about.html" class="nav-link-item">ℹ️ About</a>
+                <a href="contactusnow.html" class="nav-cta-btn">✉️ Contact Us</a>
+            </nav>
             <button class="theme-toggle-btn" id="themeToggleBtn">
                 🌙 <span id="themeToggleText">Dark Mode</span>
             </button>
@@ -954,7 +962,7 @@
         </div>
 
         <!-- Interactive Calculator Widget -->
-        <div class="calculator-card">
+        <div class="calculator-card" id="calculator">
             <div class="calc-header">
                 <div class="calc-title">
                     🧮 Interactive Investment Return Calculator
@@ -1242,5 +1250,29 @@
             });
         });
     </script>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>Home</span>
+        </a>
+        <a href="packages.html" class="mobile-nav-item">
+            <span class="nav-icon">📦</span>
+            <span>Packages</span>
+        </a>
+        <a href="index.html#calculator" class="mobile-nav-item">
+            <span class="nav-icon">🧮</span>
+            <span>Calc</span>
+        </a>
+        <a href="contactusnow.html" class="mobile-nav-item">
+            <span class="nav-icon">💬</span>
+            <span>Support</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item">
+            <span class="nav-icon">ℹ️</span>
+            <span>About</span>
+        </a>
+    </nav>
 </body>
 </html>
