@@ -461,22 +461,10 @@
                     const body = encodeURIComponent(bodyText);
                     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(targetEmail)}&su=${subject}&body=${body}`;
 
-                    // 4. Open Gmail in a new tab; fall back to same-tab if popups blocked
+                    // 4. Redirect directly to Gmail compose — works on all browsers, no popup blocker issues
                     setTimeout(() => {
-                        const newTab = window.open(gmailUrl, '_blank', 'noopener,noreferrer');
-                        if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
-                            window.location.href = gmailUrl;
-                        } else {
-                            setStatus('✅', 'Gmail opened in a new tab!', 'Please send the pre-filled email to complete your request.');
-                            const btn = form.querySelector('.submit-btn');
-                            if (btn) {
-                                btn.disabled = true;
-                                btn.textContent = '✔ Submitted';
-                                btn.style.opacity = '0.7';
-                                btn.style.cursor = 'default';
-                            }
-                        }
-                    }, 800);
+                        window.location.href = gmailUrl;
+                    }, 900);
                 });
             }
         });
