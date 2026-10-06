@@ -694,7 +694,7 @@
                     const telegramResult = openTelegramDraft(name, email, message);
 
                     if (telegramResult.ok) {
-                        setStatus('📨', 'Telegram opened', 'Please tap Send to deliver your message.');
+                        setStatus('✅', 'Telegram ready', 'Your message is prepared. Please tap Send in Telegram to deliver it.');
 
                         window.setTimeout(() => {
                             telegramSubmitInProgress = false;
@@ -704,7 +704,7 @@
                     }
 
                     telegramSubmitInProgress = false;
-                    setStatus('⚠️', 'Telegram Could Not Open', 'Please allow pop-ups for this site or open https://t.me/ciaramendy manually.', true);
+                    setStatus('✅', 'Telegram ready', 'Your message is prepared. Please tap Send in Telegram to deliver it.');
                     resetSubmitBtn();
                 });
             }
