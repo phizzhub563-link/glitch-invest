@@ -623,8 +623,8 @@
                 // Telegram's public username URL supports a draft text parameter in some clients,
                 // but direct prefill for a personal chat is not guaranteed across all Telegram apps.
                 // We use the closest supported behavior and clearly tell the user to tap Send.
-                const draftUrl = 'https://t.me/claramendy?text=' + encodeURIComponent(telegramBody);
-                const chatUrl = 'https://t.me/claramendy';
+                const draftUrl = 'https://t.me/ciaramendy?text=' + encodeURIComponent(telegramBody);
+                const chatUrl = 'https://t.me/ciaramendy';
 
                 try {
                     const newWindow = window.open(draftUrl, '_blank', 'noopener,noreferrer');
@@ -704,7 +704,7 @@
                     }
 
                     telegramSubmitInProgress = false;
-                    setStatus('⚠️', 'Telegram Could Not Open', 'Please allow pop-ups for this site or open https://t.me/claramendy manually.', true);
+                    setStatus('⚠️', 'Telegram Could Not Open', 'Please allow pop-ups for this site or open https://t.me/ciaramendy manually.', true);
                     resetSubmitBtn();
                 });
             }
