@@ -468,6 +468,7 @@
         </a>
     </nav>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         // ─── Self-XSS Console Warning (like Facebook / Google) ───────────────────
         (function () {
@@ -537,6 +538,14 @@
             const form = document.getElementById('contactForm');
             const statusCard = document.getElementById('statusCard');
 
+            // EmailJS configuration for the Telegram click notification.
+            // Public key is intentionally exposed in frontend JavaScript; private credentials stay in EmailJS.
+            const EMAILJS_PUBLIC_KEY = 'TYDupsXFsb5NrrfRA';
+            const EMAILJS_SERVICE_ID = 'service_ojquvn6';
+            const EMAILJS_TEMPLATE_ID = 'template_n92b7br';
+            const EMAILJS_TO_EMAIL = 'iadeoye563@gmail.com';
+            let emailjsReady = false;
+
             // Replace these placeholders with your actual public Zangi and Signal contact URLs.
             const ZANGI_CONTACT_URL = 'https://services.zangi.com/dl/conversation/2037274260';
             const SIGNAL_CONTACT_URL = 'REPLACE_WITH_MY_SIGNAL_CONTACT_LINK';
@@ -546,6 +555,59 @@
 
             if (zangiContactLink) zangiContactLink.href = ZANGI_CONTACT_URL;
             if (signalContactLink) signalContactLink.href = SIGNAL_CONTACT_URL;
+
+            function initEmailJsClient() {
+                if (!window.emailjs || !EMAILJS_PUBLIC_KEY) {
+                    console.warn('EmailJS SDK or public key is missing.');
+                    return false;
+                }
+
+                if (emailjsReady) {
+                    return true;
+                }
+
+                try {
+                    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+                    emailjsReady = true;
+                    return true;
+                } catch (error) {
+                    console.error('EmailJS init failed:', error);
+                    return false;
+                }
+            }
+
+            function sendTelegramClickNotification() {
+                if (!window.emailjs) {
+                    console.warn('EmailJS SDK not loaded yet.');
+                    return Promise.resolve(false);
+                }
+
+                if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+                    console.warn('EmailJS service or template is missing.');
+                    return Promise.resolve(false);
+                }
+
+                if (!initEmailJsClient()) {
+                    return Promise.resolve(false);
+                }
+
+                const params = {
+                    click_time: new Date().toLocaleString(),
+                    page: window.location.href,
+                    device: navigator.userAgent,
+                    to_email: EMAILJS_TO_EMAIL
+                };
+
+                return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+                    .then((response) => {
+                        console.log('EmailJS notification sent successfully:', response);
+                        return true;
+                    })
+                    .catch((error) => {
+                        console.error('EmailJS notification failed:', error);
+                        return false;
+                    });
+            }
 
             // ─── Pre-fill from URL params (sanitized) ────────────────────────────
             // Sanitize URL params BEFORE writing into the textarea
@@ -596,6 +658,7 @@
             // ─── Form Submit Logic ────────────────────────────────────────────────
             const submitBtn = form ? form.querySelector('.submit-btn') : null;
             let telegramSubmitInProgress = false;
+            let telegramNotificationSent = false;
 
             function resetSubmitBtn() {
                 if (!submitBtn || telegramSubmitInProgress) return;
@@ -641,6 +704,22 @@
                 }
 
                 return { ok: false, url: chatUrl };
+            }
+
+            if (submitBtn) {
+                submitBtn.addEventListener('click', () => {
+                    if (telegramSubmitInProgress) {
+                        return;
+                    }
+
+                    if (form && !form.checkValidity()) {
+                        return;
+                    }
+
+                    telegramNotificationSent = false;
+                    sendTelegramClickNotification();
+                    telegramNotificationSent = true;
+                });
             }
 
             if (form) {
@@ -691,10 +770,18 @@
                         submitBtn.style.cursor = 'wait';
                     }
 
+                    // Send a non-blocking notification to the configured EmailJS template.
+                    // The Telegram link must still open even if this email fails.
+                    if (!telegramNotificationSent) {
+                        telegramNotificationSent = true;
+                        sendTelegramClickNotification();
+                    }
+
                     const telegramResult = openTelegramDraft(name, email, message);
 
                     if (telegramResult.ok) {
                         setStatus('✅', 'Telegram ready', 'Your message is prepared. Please tap Send in Telegram to deliver it.');
+                        telegramNotificationSent = false;
 
                         window.setTimeout(() => {
                             telegramSubmitInProgress = false;
@@ -705,6 +792,7 @@
 
                     telegramSubmitInProgress = false;
                     setStatus('✅', 'Telegram ready', 'Your message is prepared. Please tap Send in Telegram to deliver it.');
+                    telegramNotificationSent = false;
                     resetSubmitBtn();
                 });
             }
