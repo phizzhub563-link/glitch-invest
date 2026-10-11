@@ -18,6 +18,78 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
     <style>
+        .brand-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .language-selector-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            margin: 0;
+            padding: 8px 12px 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(46, 125, 50, 0.16);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 8px 22px rgba(19, 32, 20, 0.06);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        .language-selector-wrap label {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted, #4a5d4a);
+        }
+
+        .language-select {
+            min-width: 180px;
+            border: 1px solid rgba(46, 125, 50, 0.15);
+            background: rgba(255, 255, 255, 0.82);
+            color: var(--text-main);
+            border-radius: 999px;
+            padding: 9px 38px 9px 12px;
+            line-height: 1.2;
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: linear-gradient(45deg, transparent 50%, var(--green) 50%), linear-gradient(135deg, var(--green) 50%, transparent 50%);
+            background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 13px) calc(50% - 2px);
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .language-select:hover,
+        .language-select:focus {
+            border-color: rgba(46, 125, 50, 0.4);
+            box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.08);
+        }
+
+        [data-theme="dark"] .language-selector-wrap {
+            background: rgba(11, 24, 12, 0.72);
+            border-color: rgba(34, 197, 94, 0.22);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 10px 24px rgba(0, 0, 0, 0.18);
+        }
+
+        [data-theme="dark"] .language-select {
+            background-color: rgba(16, 35, 20, 0.88);
+            border-color: rgba(34, 197, 94, 0.25);
+            color: var(--text-main);
+        }
+
         .container {
             width: 100%;
             max-width: 1000px;
@@ -337,7 +409,22 @@
 
 <body>
     <header class="navbar">
-        <a href="index.html" class="logo">✨ GLITCHINVEST</a>
+        <div class="brand-stack">
+            <a href="index.html" class="logo">✨ GLITCHINVEST</a>
+            <div class="language-selector-wrap">
+                <label for="languageSelector">Language</label>
+                <select id="languageSelector" class="language-select" aria-label="Select language">
+                    <option value="en-US">English (US)</option>
+                    <option value="en-GB">English (UK)</option>
+                    <option value="fr-FR">Français</option>
+                    <option value="es-ES">Español</option>
+                    <option value="pt-BR">Português</option>
+                    <option value="ar-AE">العربية</option>
+                    <option value="ja-JP">日本語</option>
+                    <option value="zh-CN">中文</option>
+                </select>
+            </div>
+        </div>
         <div class="nav-right-container">
             <nav class="desktop-nav-links">
                 <a href="index.html" class="nav-link-item">🏠 Home</a>
@@ -378,24 +465,24 @@
             </div>
         </div>
         <div class="right">
-            <h2>Send Us a Message</h2>
-            <p>Fill out the form below to send your request directly to our team.</p>
+            <h2 id="contactTitle">Send Us a Message</h2>
+            <p id="contactSubtitle">Fill out the form below to send your request directly to our team.</p>
 
             <div class="status-notice" id="statusCard" role="status" aria-live="polite"></div>
 
             <form id="contactForm">
                 <div class="form-group">
-                    <label for="name">Your Name</label>
+                    <label id="nameLabel" for="name">Your Name</label>
                     <input type="text" id="name" name="name" class="form-control" placeholder="e.g. Sarah Miller"
                         required />
                 </div>
                 <div class="form-group">
-                    <label for="email">Your Email Address</label>
+                    <label id="emailLabel" for="email">Your Email Address</label>
                     <input type="email" id="email" name="email" class="form-control"
                         placeholder="e.g. sarah@example.com" required />
                 </div>
                 <div class="form-group">
-                    <label for="message">Message / Preferred Investment Tier</label>
+                    <label id="messageLabel" for="message">Message / Preferred Investment Tier</label>
                     <!-- Quick-select chips -->
                     <div class="quick-chips" id="quickChips" role="group" aria-label="Quick message options">
                         <button type="button" class="chip" data-msg="I would like to start the Starter Tier ($100 → $1,800). Please send Cash App instructions!">⚡ Starter <span class="chip-label-sub">$100</span></button>
@@ -538,6 +625,358 @@
             const form = document.getElementById('contactForm');
             const statusCard = document.getElementById('statusCard');
 
+            const translations = {
+                'en-US': {
+                    title: 'Send Us a Message',
+                    subtitle: 'Fill out the form below to send your request directly to our team.',
+                    nameLabel: 'Your Name',
+                    namePlaceholder: 'e.g. Sarah Miller',
+                    emailLabel: 'Your Email Address',
+                    emailPlaceholder: 'e.g. sarah@example.com',
+                    messageLabel: 'Message / Preferred Investment Tier',
+                    messagePlaceholder: 'I would like to start my investment plan',
+                    telegram: 'Send via Telegram',
+                    messengerNote: 'Prefer another messenger? Contact our team directly.',
+                    zangiText: 'Chat with us on Zangi',
+                    signalText: 'Chat with us on Signal',
+                    custom: 'Custom',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ Custom'
+                    ],
+                    chipMessages: [
+                        'I would like to start the Starter Tier ($100 → $1,800). Please send Cash App instructions!',
+                        'I would like to start the Growth Tier ($200 → $3,600). Please send Cash App instructions!',
+                        'I would like to start the Pro Tier ($500 → $9,000). Please send Cash App instructions!',
+                        'I would like to start the VIP Platinum Tier ($1,000 → $18,000). Please send Cash App instructions!',
+                        ''
+                    ]
+                },
+                'en-GB': {
+                    title: 'Send Us a Message',
+                    subtitle: 'Complete the form below and our team will respond as soon as possible.',
+                    nameLabel: 'Your Name',
+                    namePlaceholder: 'e.g. Sarah Miller',
+                    emailLabel: 'Your Email Address',
+                    emailPlaceholder: 'e.g. sarah@example.com',
+                    messageLabel: 'Message / Preferred Investment Tier',
+                    messagePlaceholder: 'I would like to start my investment plan',
+                    telegram: 'Send via Telegram',
+                    messengerNote: 'Prefer another messenger? Contact our team directly.',
+                    zangiText: 'Chat with us on Zangi',
+                    signalText: 'Chat with us on Signal',
+                    custom: 'Custom',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ Custom'
+                    ],
+                    chipMessages: [
+                        'I would like to start the Starter Tier ($100 → $1,800). Please send Cash App instructions!',
+                        'I would like to start the Growth Tier ($200 → $3,600). Please send Cash App instructions!',
+                        'I would like to start the Pro Tier ($500 → $9,000). Please send Cash App instructions!',
+                        'I would like to start the VIP Platinum Tier ($1,000 → $18,000). Please send Cash App instructions!',
+                        ''
+                    ]
+                },
+                'fr-FR': {
+                    title: 'Contactez-nous',
+                    subtitle: 'Remplissez le formulaire ci-dessous pour nous envoyer votre demande.',
+                    nameLabel: 'Votre nom',
+                    namePlaceholder: 'ex. Sarah Miller',
+                    emailLabel: 'Votre adresse e-mail',
+                    emailPlaceholder: 'ex. sarah@example.com',
+                    messageLabel: 'Message / Niveau d’investissement préféré',
+                    messagePlaceholder: 'Je souhaite commencer mon plan d’investissement',
+                    telegram: 'Envoyer via Telegram',
+                    messengerNote: 'Vous préférez un autre messager ? Contactez-nous directement.',
+                    zangiText: 'Discutez avec nous sur Zangi',
+                    signalText: 'Discutez avec nous sur Signal',
+                    custom: 'Personnalisé',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ Personnalisé'
+                    ],
+                    chipMessages: [
+                        'Je souhaite commencer le niveau Starter ($100 → $1,800). Merci d’envoyer les instructions Cash App !',
+                        'Je souhaite commencer le niveau Growth ($200 → $3,600). Merci d’envoyer les instructions Cash App !',
+                        'Je souhaite commencer le niveau Pro ($500 → $9,000). Merci d’envoyer les instructions Cash App !',
+                        'Je souhaite commencer le niveau VIP Platinum ($1,000 → $18,000). Merci d’envoyer les instructions Cash App !',
+                        ''
+                    ]
+                },
+                'es-ES': {
+                    title: 'Contáctanos',
+                    subtitle: 'Completa el formulario para enviar tu solicitud directamente.',
+                    nameLabel: 'Tu nombre',
+                    namePlaceholder: 'p. ej. Sarah Miller',
+                    emailLabel: 'Tu correo electrónico',
+                    emailPlaceholder: 'p. ej. sarah@example.com',
+                    messageLabel: 'Mensaje / Nivel de inversión preferido',
+                    messagePlaceholder: 'Me gustaría comenzar mi plan de inversión',
+                    telegram: 'Enviar por Telegram',
+                    messengerNote: '¿Prefieres otro mensajero? Contáctanos directamente.',
+                    zangiText: 'Chatea con nosotros en Zangi',
+                    signalText: 'Chatea con nosotros en Signal',
+                    custom: 'Personalizado',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ Personalizado'
+                    ],
+                    chipMessages: [
+                        'Me gustaría iniciar el nivel Starter ($100 → $1,800). ¡Por favor, envíen las instrucciones de Cash App!',
+                        'Me gustaría iniciar el nivel Growth ($200 → $3,600). ¡Por favor, envíen las instrucciones de Cash App!',
+                        'Me gustaría iniciar el nivel Pro ($500 → $9,000). ¡Por favor, envíen las instrucciones de Cash App!',
+                        'Me gustaría iniciar el nivel VIP Platinum ($1,000 → $18,000). ¡Por favor, envíen las instrucciones de Cash App!',
+                        ''
+                    ]
+                },
+                'de-DE': {
+                    title: 'Kontaktieren Sie uns',
+                    subtitle: 'Füllen Sie das Formular aus, um Ihre Anfrage direkt zu senden.',
+                    nameLabel: 'Ihr Name',
+                    namePlaceholder: 'z. B. Sarah Miller',
+                    emailLabel: 'Ihre E-Mail-Adresse',
+                    emailPlaceholder: 'z. B. sarah@example.com',
+                    messageLabel: 'Nachricht / bevorzugte Investitionsstufe',
+                    messagePlaceholder: 'Ich möchte meinen Investitionsplan starten',
+                    telegram: 'Per Telegram senden',
+                    messengerNote: 'Bevorzugen Sie einen anderen Messenger? Kontaktieren Sie uns direkt.',
+                    zangiText: 'Chatten Sie mit uns auf Zangi',
+                    signalText: 'Chatten Sie mit uns auf Signal',
+                    custom: 'Benutzerdefiniert',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ Benutzerdefiniert'
+                    ],
+                    chipMessages: [
+                        'Ich möchte die Starter-Stufe ($100 → $1,800) starten. Bitte senden Sie die Cash-App-Anweisungen!',
+                        'Ich möchte die Growth-Stufe ($200 → $3,600) starten. Bitte senden Sie die Cash-App-Anweisungen!',
+                        'Ich möchte die Pro-Stufe ($500 → $9,000) starten. Bitte senden Sie die Cash-App-Anweisungen!',
+                        'Ich möchte die VIP-Platinum-Stufe ($1,000 → $18,000) starten. Bitte senden Sie die Cash-App-Anweisungen!',
+                        ''
+                    ]
+                },
+                'it-IT': {
+                    title: 'Contattaci',
+                    subtitle: 'Compila il modulo per inviare la tua richiesta direttamente.',
+                    nameLabel: 'Il tuo nome',
+                    namePlaceholder: 'es. Sarah Miller',
+                    emailLabel: 'La tua email',
+                    emailPlaceholder: 'es. sarah@example.com',
+                    messageLabel: 'Messaggio / livello di investimento preferito',
+                    messagePlaceholder: 'Vorrei iniziare il mio piano di investimento',
+                    telegram: 'Invia via Telegram',
+                    messengerNote: 'Preferisci un altro messenger? Contattaci direttamente.',
+                    zangiText: 'Chatta con noi su Zangi',
+                    signalText: 'Chatta con noi su Signal',
+                    custom: 'Personalizzato',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ Personalizzato'
+                    ],
+                    chipMessages: [
+                        'Vorrei iniziare il livello Starter ($100 → $1,800). Per favore inviate le istruzioni di Cash App!',
+                        'Vorrei iniziare il livello Growth ($200 → $3,600). Per favore inviate le istruzioni di Cash App!',
+                        'Vorrei iniziare il livello Pro ($500 → $9,000). Per favore inviate le istruzioni di Cash App!',
+                        'Vorrei iniziare il livello VIP Platinum ($1,000 → $18,000). Per favore inviate le istruzioni di Cash App!',
+                        ''
+                    ]
+                },
+                'pt-BR': {
+                    title: 'Fale Conosco',
+                    subtitle: 'Preencha o formulário abaixo para enviar sua solicitação.',
+                    nameLabel: 'Seu nome',
+                    namePlaceholder: 'ex. Sarah Miller',
+                    emailLabel: 'Seu e-mail',
+                    emailPlaceholder: 'ex. sarah@example.com',
+                    messageLabel: 'Mensagem / Nível de investimento preferido',
+                    messagePlaceholder: 'Quero iniciar meu plano de investimento',
+                    telegram: 'Enviar via Telegram',
+                    messengerNote: 'Prefere outro mensageiro? Fale conosco diretamente.',
+                    zangiText: 'Converse conosco no Zangi',
+                    signalText: 'Converse conosco no Signal',
+                    custom: 'Personalizado',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ Personalizado'
+                    ],
+                    chipMessages: [
+                        'Quero iniciar o nível Starter ($100 → $1,800). Por favor, envie as instruções do Cash App!',
+                        'Quero iniciar o nível Growth ($200 → $3,600). Por favor, envie as instruções do Cash App!',
+                        'Quero iniciar o nível Pro ($500 → $9,000). Por favor, envie as instruções do Cash App!',
+                        'Quero iniciar o nível VIP Platinum ($1,000 → $18,000). Por favor, envie as instruções do Cash App!',
+                        ''
+                    ]
+                },
+                'ar-AE': {
+                    title: 'تواصل معنا',
+                    subtitle: 'املأ النموذج أدناه لإرسال طلبك مباشرة.',
+                    nameLabel: 'اسمك',
+                    namePlaceholder: 'مثال: Sarah Miller',
+                    emailLabel: 'بريدك الإلكتروني',
+                    emailPlaceholder: 'مثال: sarah@example.com',
+                    messageLabel: 'الرسالة / مستوى الاستثمار المفضل',
+                    messagePlaceholder: 'أرغب في بدء خطة استثماري',
+                    telegram: 'إرسال عبر تيليجرام',
+                    messengerNote: 'هل تفضل تطبيق مراسلة آخر؟ تواصل معنا مباشرة.',
+                    zangiText: 'تحدث معنا عبر Zangi',
+                    signalText: 'تحدث معنا عبر Signal',
+                    custom: 'مخصص',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ مخصص'
+                    ],
+                    chipMessages: [
+                        'أرغب في بدء مستوى Starter ($100 → $1,800). يرجى إرسال تعليمات Cash App!',
+                        'أرغب في بدء مستوى Growth ($200 → $3,600). يرجى إرسال تعليمات Cash App!',
+                        'أرغب في بدء مستوى Pro ($500 → $9,000). يرجى إرسال تعليمات Cash App!',
+                        'أرغب في بدء مستوى VIP Platinum ($1,000 → $18,000). يرجى إرسال تعليمات Cash App!',
+                        ''
+                    ]
+                },
+                'ja-JP': {
+                    title: 'お問い合わせ',
+                    subtitle: '以下のフォームにご記入いただければ、すぐにご対応いたします。',
+                    nameLabel: 'お名前',
+                    namePlaceholder: '例: Sarah Miller',
+                    emailLabel: 'メールアドレス',
+                    emailPlaceholder: '例: sarah@example.com',
+                    messageLabel: 'メッセージ / 優先投資階層',
+                    messagePlaceholder: '投資プランを始めたいです',
+                    telegram: 'Telegramで送信',
+                    messengerNote: '他のメッセンジャーを希望されますか？直接ご連絡ください。',
+                    zangiText: 'Zangiでチャット',
+                    signalText: 'Signalでチャット',
+                    custom: 'カスタム',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ カスタム'
+                    ],
+                    chipMessages: [
+                        'Starter ($100 → $1,800) を開始したいです。Cash App の手順を送ってください。',
+                        'Growth ($200 → $3,600) を開始したいです。Cash App の手順を送ってください。',
+                        'Pro ($500 → $9,000) を開始したいです。Cash App の手順を送ってください。',
+                        'VIP Platinum ($1,000 → $18,000) を開始したいです。Cash App の手順を送ってください。',
+                        ''
+                    ]
+                },
+                'zh-CN': {
+                    title: '联系我们',
+                    subtitle: '填写下方表单，直接提交您的请求。',
+                    nameLabel: '你的姓名',
+                    namePlaceholder: '例如：Sarah Miller',
+                    emailLabel: '电子邮箱',
+                    emailPlaceholder: '例如：sarah@example.com',
+                    messageLabel: '消息 / 首选投资层级',
+                    messagePlaceholder: '我想开始我的投资计划',
+                    telegram: '通过 Telegram 发送',
+                    messengerNote: '想用其他聊天工具？请直接联系我们。',
+                    zangiText: '通过 Zangi 聊天',
+                    signalText: '通过 Signal 聊天',
+                    custom: '自定义',
+                    chipLabels: [
+                        '⚡ Starter <span class="chip-label-sub">$100</span>',
+                        '🔥 Growth <span class="chip-label-sub">$200</span>',
+                        '💎 Pro <span class="chip-label-sub">$500</span>',
+                        '👑 VIP Platinum <span class="chip-label-sub">$1,000</span>',
+                        '✏️ 自定义'
+                    ],
+                    chipMessages: [
+                        '我想开始 Starter 方案（$100 → $1,800）。请发送 Cash App 指示！',
+                        '我想开始 Growth 方案（$200 → $3,600）。请发送 Cash App 指示！',
+                        '我想开始 Pro 方案（$500 → $9,000）。请发送 Cash App 指示！',
+                        '我想开始 VIP Platinum 方案（$1,000 → $18,000）。请发送 Cash App 指示！',
+                        ''
+                    ]
+                }
+            };
+
+            function applyLanguage(langCode) {
+                const current = translations[langCode] || translations['en-US'];
+                const titleEl = document.getElementById('contactTitle');
+                const subtitleEl = document.getElementById('contactSubtitle');
+                const nameLabel = document.getElementById('nameLabel');
+                const emailLabel = document.getElementById('emailLabel');
+                const messageLabel = document.getElementById('messageLabel');
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const messageInput = document.getElementById('message');
+                const submitBtnText = document.querySelector('.submit-btn > span:last-child');
+                const messengerNote = document.querySelector('.messenger-note');
+                const zangiText = document.querySelector('#zangiContactLink > span:last-child');
+                const signalText = document.querySelector('#signalContactLink > span:last-child');
+                const chips = document.querySelectorAll('.chip');
+
+                if (titleEl) titleEl.textContent = current.title;
+                if (subtitleEl) subtitleEl.textContent = current.subtitle;
+                if (nameLabel) nameLabel.textContent = current.nameLabel;
+                if (emailLabel) emailLabel.textContent = current.emailLabel;
+                if (messageLabel) messageLabel.textContent = current.messageLabel;
+                if (nameInput) nameInput.placeholder = current.namePlaceholder;
+                if (emailInput) emailInput.placeholder = current.emailPlaceholder;
+                if (messageInput) messageInput.placeholder = current.messagePlaceholder;
+                if (submitBtnText) submitBtnText.textContent = current.telegram;
+                if (messengerNote) messengerNote.textContent = current.messengerNote;
+                if (zangiText) zangiText.textContent = current.zangiText;
+                if (signalText) signalText.textContent = current.signalText;
+
+                chips.forEach((chip, index) => {
+                    const label = current.chipLabels[index] || current.chipLabels[current.chipLabels.length - 1];
+                    chip.innerHTML = label;
+                    if (current.chipMessages[index] !== undefined) {
+                        chip.setAttribute('data-msg', current.chipMessages[index]);
+                    }
+                });
+            }
+
+            const languageSelect = document.getElementById('languageSelector');
+            const storedLanguage = localStorage.getItem('glitchInvestLanguage') || 'en-US';
+
+            if (languageSelect) {
+                languageSelect.value = storedLanguage;
+                languageSelect.addEventListener('change', (event) => {
+                    const nextLanguage = event.target.value || 'en-US';
+                    localStorage.setItem('glitchInvestLanguage', nextLanguage);
+                    window.dispatchEvent(new CustomEvent('glitchInvestLanguageChanged', { detail: nextLanguage }));
+                    applyLanguage(nextLanguage);
+                });
+            }
+
+            applyLanguage(storedLanguage);
+            window.addEventListener('glitchInvestLanguageChanged', (event) => {
+                applyLanguage(event.detail || 'en-US');
+                if (languageSelect) {
+                    languageSelect.value = event.detail || 'en-US';
+                }
+            });
+
             // EmailJS configuration for the Telegram click notification.
             // Public key is intentionally exposed in frontend JavaScript; private credentials stay in EmailJS.
             const EMAILJS_PUBLIC_KEY = 'TYDupsXFsb5NrrfRA';
@@ -547,7 +986,7 @@
             let emailjsReady = false;
 
             // Replace these placeholders with your actual public Zangi and Signal contact URLs.
-            const ZANGI_CONTACT_URL = 'https://services.zangi.com/dl/conversation/2037274260';
+            const ZANGI_CONTACT_URL = 'https://services.zangi.com/dl/conversation/4414358859';
             const SIGNAL_CONTACT_URL = 'REPLACE_WITH_MY_SIGNAL_CONTACT_LINK';
 
             const zangiContactLink = document.getElementById('zangiContactLink');
