@@ -153,31 +153,6 @@
             background: rgba(46, 125, 50, 0.2);
         }
 
-        .homepage-language-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-right: 12px;
-            flex-wrap: wrap;
-        }
-
-        .homepage-language-wrap label {
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: var(--text-muted);
-        }
-
-        .homepage-language-select {
-            min-width: 210px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-main);
-            border-radius: 12px;
-            padding: 9px 12px;
-            font: inherit;
-            outline: none;
-        }
-
         /* Hero Layout */
         .hero {
             position: relative;
@@ -905,35 +880,6 @@
             ✨ GLITCHINVEST
         </a>
         <div class="nav-right-container">
-            <div class="homepage-language-wrap">
-                <label for="homepageLanguageSelect">Language</label>
-                <select id="homepageLanguageSelect" class="homepage-language-select" aria-label="Select language">
-                    <option value="en-US">English (United States)</option>
-                    <option value="en-GB">English (United Kingdom)</option>
-                    <option value="fr-FR">Français (France)</option>
-                    <option value="es-ES">Español (Spain)</option>
-                    <option value="de-DE">Deutsch (Germany)</option>
-                    <option value="it-IT">Italiano (Italy)</option>
-                    <option value="pt-BR">Português (Brazil)</option>
-                    <option value="pt-PT">Português (Portugal)</option>
-                    <option value="ar-AE">العربية (UAE)</option>
-                    <option value="tr-TR">Türkçe (Türkiye)</option>
-                    <option value="ru-RU">Русский (Russia)</option>
-                    <option value="hi-IN">हिन्दी (India)</option>
-                    <option value="ja-JP">日本語 (Japan)</option>
-                    <option value="ko-KR">한국어 (South Korea)</option>
-                    <option value="zh-CN">中文 (China)</option>
-                    <option value="nl-NL">Nederlands (Netherlands)</option>
-                    <option value="pl-PL">Polski (Poland)</option>
-                    <option value="cs-CZ">Čeština (Czech Republic)</option>
-                    <option value="ro-RO">Română (Romania)</option>
-                    <option value="el-GR">Ελληνικά (Greece)</option>
-                    <option value="en-NG">English (Nigeria)</option>
-                    <option value="en-ZA">English (South Africa)</option>
-                    <option value="en-AU">English (Australia)</option>
-                    <option value="en-CA">English (Canada)</option>
-                </select>
-            </div>
             <nav class="desktop-nav-links">
                 <a href="index.html" class="nav-link-item active">🏠 Home</a>
                 <a href="packages.html" class="nav-link-item">📊 Investment Tiers</a>
@@ -1104,27 +1050,6 @@
     <!-- Interactive Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const homepageLanguageSelect = document.getElementById('homepageLanguageSelect');
-            const savedLanguage = localStorage.getItem('glitchInvestLanguage') || 'en-US';
-
-            function updateLanguageSelection(lang) {
-                localStorage.setItem('glitchInvestLanguage', lang);
-                document.documentElement.lang = lang;
-                if (homepageLanguageSelect) {
-                    homepageLanguageSelect.value = lang;
-                }
-                window.dispatchEvent(new CustomEvent('glitchInvestLanguageChanged', { detail: lang }));
-            }
-
-            if (homepageLanguageSelect) {
-                homepageLanguageSelect.value = savedLanguage;
-                homepageLanguageSelect.addEventListener('change', (event) => {
-                    updateLanguageSelection(event.target.value);
-                });
-            }
-
-            updateLanguageSelection(savedLanguage);
-
             // Theme Toggle Logic
             const themeToggleBtn = document.getElementById('themeToggleBtn');
             const themeToggleText = document.getElementById('themeToggleText');
